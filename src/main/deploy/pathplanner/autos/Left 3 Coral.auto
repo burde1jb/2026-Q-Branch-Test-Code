@@ -1,0 +1,180 @@
+{
+  "version": "2025.0",
+  "command": {
+    "type": "sequential",
+    "data": {
+      "commands": [
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Left A1 - Start to L1 Drop"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonL4Command"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonExtend"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonTimedIntakeCommandShort"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Left A2 - L1 to Feed"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonHomeCommand"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonRetract"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonTimedIntakeCommand"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Left A3 - Feed to L"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonL4Command"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonExtend"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonTimedIntakeCommandShort"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Left A4 - L to Feed"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonHomeCommand"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonRetract"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonTimedIntakeCommand"
+          }
+        },
+        {
+          "type": "parallel",
+          "data": {
+            "commands": [
+              {
+                "type": "path",
+                "data": {
+                  "pathName": "Left A5 - Feed to K"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonL4Command"
+                }
+              },
+              {
+                "type": "named",
+                "data": {
+                  "name": "AutonExtend"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonTimedIntakeCommandShort"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonRetract"
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutonHomeCommand"
+          }
+        }
+      ]
+    }
+  },
+  "resetOdom": true,
+  "folder": null,
+  "choreoAuto": false
+}
