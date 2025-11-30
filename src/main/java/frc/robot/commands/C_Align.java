@@ -1,8 +1,7 @@
 package frc.robot.commands;
 
 import com.ctre.phoenix6.swerve.SwerveRequest;
-import com.ctre.phoenix6.swerve.SwerveRequest.ForwardPerspectiveValue;
-
+//import com.ctre.phoenix6.swerve.SwerveRequest.ForwardPerspectiveValue;
 import edu.wpi.first.math.MathUtil;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -17,7 +16,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.LimelightHelpers;
-import frc.robot.Robot;
+//import frc.robot.Robot;
 import frc.robot.RobotContainer;
 import frc.robot.AlphaBots.NT;
 import frc.robot.LimelightHelpers.PoseEstimate;
@@ -47,9 +46,6 @@ public class C_Align extends Command{
     public static final double maxXvelocity = 1.0;
     public static final double maxRZvelocity = MaxAngularRate /2;
 
-    
-
-
 }
     //Get ClassName to help network tables auto sort by creating a sub Table with the same name.
     String className = this.getClass().getSimpleName();
@@ -60,8 +56,6 @@ public class C_Align extends Command{
     private final PIDController AlignXPid = new PIDController(drivetrainThings.k_PoseX_P,drivetrainThings.k_PoseX_I,drivetrainThings.k_PoseX_D);
     private final PIDController AlignYPid = new PIDController(drivetrainThings.k_PoseY_P,drivetrainThings.k_PoseY_I,drivetrainThings.k_PoseY_D);
     private final PIDController AlignRZPid = new PIDController(drivetrainThings.k_RZ_P,drivetrainThings.k_RZ_I,drivetrainThings.k_RZ_D);
-
-
 
     public double MaxSpeedPercent = 1.0;//9; //6; // 6 meters per second desired top speed
     public double MaxAngularRatePercent = 1.0; //2.5 // 3/4 of a rotation per second max angular velocity
@@ -82,10 +76,9 @@ public class C_Align extends Command{
     public static StructEntry<Pose2d> NT_AlignSetpoint = NT.getStructEntry_Pose2D("Poses","AlignSetpoint",new Pose2d());
     public static StringEntry NT_AlignedUsing = NT.getStringEntry(PidAlignmentClassname, "AlignedUsing", "none");
     public static DoubleEntry NT_TimeToAlign = NT.getDoubleEntry(PidAlignmentClassname, "TimeToAlign",0.0);
-     public static DoubleEntry NT_XPGain = NT.getDoubleEntry(PidAlignmentClassname, "XP Gain",drivetrainThings.k_PoseX_P);
+    public static DoubleEntry NT_XPGain = NT.getDoubleEntry(PidAlignmentClassname, "XP Gain",drivetrainThings.k_PoseX_P);
     public static DoubleEntry NT_XIGain = NT.getDoubleEntry(PidAlignmentClassname, "XI Gain",drivetrainThings.k_PoseX_I);
     public static DoubleEntry NT_XDGain = NT.getDoubleEntry(PidAlignmentClassname, "XD Gain",drivetrainThings.k_PoseX_D);
-
     public static DoubleEntry NT_ZPGain = NT.getDoubleEntry(PidAlignmentClassname, "ZP Gain",drivetrainThings.k_RZ_P);
     public static DoubleEntry NT_ZIGain = NT.getDoubleEntry(PidAlignmentClassname, "ZI Gain",drivetrainThings.k_RZ_I);
     public static DoubleEntry NT_ZDGain = NT.getDoubleEntry(PidAlignmentClassname, "ZD Gain",drivetrainThings.k_RZ_D);
@@ -97,8 +90,6 @@ public class C_Align extends Command{
         AlignXPid.setSetpoint(TargetPose.getX());
         AlignYPid.setSetpoint(TargetPose.getY());
         AlignRZPid.setSetpoint(0);
-       
-
 
         //when we startup an alignment pull the latest numbers to try from the user.
         
@@ -122,8 +113,6 @@ public class C_Align extends Command{
         AlignRZPid.reset();
         TimeToAlignTimer.restart();
     }
-
-    
 
     @Override
     public void execute() {
@@ -154,8 +143,7 @@ public class C_Align extends Command{
       PoseEstimate frontLimelightMt1 =  LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
       PoseEstimate LimelightMt1 = frontLimelightMt1;
   
-
-      double TagdistMaxMeters = 6;
+      //double TagdistMaxMeters = 6;
       boolean shoulduseLLMT1Pose = LimelightMt1 !=null && LimelightMt1.tagCount > 0;// & LimelightMt1.avgTagDist < TagdistMaxMeters;
       if(shoulduseLLMT1Pose){
         CurrentPose = LimelightMt1.pose;
@@ -176,7 +164,7 @@ public class C_Align extends Command{
       PoseOffset = new Pose2d(Xpose_Offset, Ypose_Offset, RZ_Offset2);
       if(PoseOffset == null){System.err.println("No pose OFFSET created");}
     }
-        // If "isfinished" end true OR if we cancel this command for some reason. 
+    // If "isfinished" end true OR if we cancel this command for some reason. 
     // we need some actions to happen no matter what. 
     @Override
     public void end(boolean interrupted) {
@@ -185,7 +173,6 @@ public class C_Align extends Command{
       NT_TimeToAlign.set(TimeToAlignTimer.get());
       
     }
-
 
     public final Timer SettleDebounceTimer = new Timer();
     private double debounceSecondsNeeded = .02;
@@ -217,11 +204,8 @@ public class C_Align extends Command{
         }
         else{
             SettleDebounceTimer.restart();
-            
-
         }
         return false;
-        
     }
 
     public void MoveRobotToTargetInFieldCoordinates(double YposeAxis, double XposeAxis, double RZposeAxis) {
@@ -273,7 +257,6 @@ public class C_Align extends Command{
     double i = NT_ZIGain.getAsDouble();
     double d = NT_ZDGain.getAsDouble();
     
-      
     if((p != AlignRZPid.getP())) { AlignRZPid.setP(p); drivetrainThings.k_RZ_P = p;}
     if((i != AlignRZPid.getI())) { AlignRZPid.setI(i); drivetrainThings.k_RZ_I = i;}
     if((d != AlignRZPid.getD())) { AlignRZPid.setD(d); drivetrainThings.k_RZ_D = d;}

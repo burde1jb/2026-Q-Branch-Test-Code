@@ -1,5 +1,6 @@
 package frc.robot.commands;
-
+//This was an experimental State Machine code developed to problem solve bypassing a default code in a Spark Flex motor controller
+//This code did not solve the problem and was ultimately abandoned
 import frc.robot.subsystems.CoralIntakeSubsystem;
 
 public class CoralIntakeStateMachine {

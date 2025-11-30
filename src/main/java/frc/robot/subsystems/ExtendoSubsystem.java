@@ -1,13 +1,14 @@
 package frc.robot.subsystems;
-
+//Import all libraries needed to call up the systems used
+//Here we call up Spark Flex motor controller and an Absolute Encoder
 import com.revrobotics.spark.SparkFlex;
 import com.revrobotics.spark.SparkLimitSwitch;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.LimitSwitchConfig;
 import com.revrobotics.spark.config.SparkFlexConfig;
+import com.revrobotics.spark.config.LimitSwitchConfig.Behavior;
 import com.revrobotics.AbsoluteEncoder;
-import com.revrobotics.*;
-
+//The generic "DigitalInput" is used when plugging in a sensor like a magnetic limit switch
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,22 +17,28 @@ import frc.robot.RobotConstants;
 import au.grapplerobotics.LaserCan;
 
 public class ExtendoSubsystem extends SubsystemBase {
+    //Name the motors and sensors
     SparkFlex ExtendoMotor;
     AbsoluteEncoder ExtendoEncoder;
     SparkFlexConfig ExtendoMotorConfig;
+     private LaserCan lc;
     public DigitalInput sensor;
     public SparkLimitSwitch magLimitSwitch;
     public LimitSwitchConfig magLimitSwitchConfig;
+    //Define the set values to be used with the sensor - Keep the actual value in the RobotConstants
     private final double rangeOffset = RobotConstants.ExtendoRangeOffset;
     private final double encoderOffset = RobotConstants.ExtendoEncoderOffset;
-    private LaserCan lc;
 
     public ExtendoSubsystem() {
+        //Define the motor with the CAN ID value and type of motor (brushed or brushless)
         ExtendoMotor = new SparkFlex(RobotConstants.ExtendoMotorCANid, MotorType.kBrushless);
+        //Define the sensor - the REV Encoder can be either Absolute (0 to 1) or Quadrature (Unlimited)
         ExtendoEncoder = ExtendoMotor.getAbsoluteEncoder();
         ExtendoMotorConfig = new SparkFlexConfig();
         ExtendoMotorConfig.limitSwitch
-                .forwardLimitSwitchEnabled(true);
+                .forwardLimitSwitchTriggerBehavior(Behavior.kStopMovingMotor);
+                //OLD way of doing the same thing as above - Deprecated for 2026
+                //.forwardLimitSwitchEnabled(true);
         lc = new LaserCan(0);
 
     }
@@ -41,6 +48,8 @@ public class ExtendoSubsystem extends SubsystemBase {
         return (position);
     }
 
+//Set the commands we want to use in the COMMAND portion
+//This command allows the motor to run until we reach the goal of the Encoder
     public void goTo(double degrees) {
 
         var position = (ExtendoEncoder.getPosition() + rangeOffset + encoderOffset) % 1;
@@ -53,31 +62,6 @@ public class ExtendoSubsystem extends SubsystemBase {
         else {
             this.stop();
         }
-
-        // LaserCan.Measurement measurement = lc.getMeasurement();
-        // if (measurement != null && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
-        //     System.out.println("The target is " + measurement.distance_mm + "mm away!");
-        // } else {
-        //     System.out.println("Oh no! The target is out of range, or we can't get a reliable measurement!");
-        //     // You can still use distance_mm in here, if you're ok tolerating a clamped
-        //     // value or an unreliable measurement.
-        // }
-
-        // var position = (ExtendoEncoder.getPosition() + rangeOffset + encoderOffset) % 1;
-
-        // if (measurement != null){
-        //         if (position < degrees) {
-        //             ExtendoMotor.set(RobotConstants.ExtendoExtendSpeed);
-        //         } else if ((position  - (2 * rangeOffset)) > (degrees + encoderOffset)) {
-        //             ExtendoMotor.set(RobotConstants.ExtendoRetractSpeed);
-        //         }
-        //         else {
-        //             this.stop();
-        //         }
-        //     }
-        // else {
-        //     this.stop();
-        // }
     }
 
     public void goToL4(double degrees) {
@@ -94,6 +78,7 @@ public class ExtendoSubsystem extends SubsystemBase {
         }
     }
 
+//This command is to be used in the AUTONOMOUS period because this returns only TRUE or FALSE values
     public boolean wentTo(double degrees) {
         LaserCan.Measurement measurement = lc.getMeasurement();
 
@@ -111,33 +96,6 @@ public class ExtendoSubsystem extends SubsystemBase {
             this.stop();
             return true;
         }
-
-        // if (measurement != null && measurement.status == LaserCan.LASERCAN_STATUS_VALID_MEASUREMENT) {
-        //     System.out.println("The target is " + measurement.distance_mm + "mm away!");
-        // } else {
-        //     System.out.println("Oh no! The target is out of range, or we can't get a reliable measurement!");
-        //     // You can still use distance_mm in here, if you're ok tolerating a clamped
-        //     // value or an unreliable measurement.
-        // }
-
-        // if (measurement != null){
-        //     if (position < (degrees + encoderOffset)) {
-        //         this.Extend();
-        //         // ExtendoMotor.set(RobotConstants.ExtendoExtendSpeed);
-        //         return false;
-        //     } else if ((position - (2 * rangeOffset)) > (degrees + encoderOffset)) {
-        //         this.Retract();
-        //         // ExtendoMotor.set(RobotConstants.ExtendoRetractSpeed);
-        //         return false;
-        //     } else {
-        //         this.stop();
-        //         return true;
-        //     }
-        // }
-        // else {
-        //     this.stop();
-        //     return false;
-        // }
     }
 
     public void Extend() {
@@ -180,6 +138,7 @@ public class ExtendoSubsystem extends SubsystemBase {
         ExtendoMotor.stopMotor();
     }
 
+//This is for AUTONOMOUS and only a check - no effect on what the motor does
     public boolean encoderCheck(double distance) {
         if (ExtendoEncoder.getPosition() == distance) {
             return true;
@@ -189,7 +148,7 @@ public class ExtendoSubsystem extends SubsystemBase {
 
     @Override
     public void periodic() {
-        
+    //This puts a number on the Smart Dashboard, the big screen which pops up with the FRC Driver Station
         SmartDashboard.putNumber("Extendo Encoder", (ExtendoEncoder.getPosition() + encoderOffset) % 1);
     }
 }

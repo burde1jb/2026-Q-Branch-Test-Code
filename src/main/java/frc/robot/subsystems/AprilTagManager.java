@@ -24,6 +24,8 @@ import frc.robot.RobotConstants;
 public class AprilTagManager extends SubsystemBase
   {
     //public static ArrayList<AprilTag> tagList = new ArrayList<AprilTag>(22);
+    //This is where you adjust the REAL WORLD distances between the April Tag and the robot
+    //These values are in INCHES and will be turned into meters at the end
     public static double RobotDefaultOffset = 4.50;//adds a 1/4 inch extra space at locations. 
     public static double bumperthickness = 3.00*2; //real 3.75"
     public static double robotsize = 30.25/2;//size no bumpers divided by 2
@@ -32,6 +34,8 @@ public class AprilTagManager extends SubsystemBase
     public static double ReefOffset = RobotConstants.ReefOffset;
     public static double ReefOffsetLeft = RobotConstants.ReefOffsetLeft;
 
+    //These values were used to adjust left or right for the robot center to the april tag center
+    //Test real world response to this alignment values for left, right, and centering
     public static final double ReefWidthCenterOffset = Units.inchesToMeters(20)/2;// used during test Units.inchesToMeters(12.875)/2; //Reef Width CenteronCenter divided in half
     public static final double SourcePickupWidthCenterOffset = Units.inchesToMeters(24)/2; //Reef Width CenteronCenter divided in half
     public static final double ExtraMetersoffsetForAlgaePickup = Units.inchesToMeters(7.25);
