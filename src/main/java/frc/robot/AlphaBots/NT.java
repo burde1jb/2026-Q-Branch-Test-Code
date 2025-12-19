@@ -11,7 +11,7 @@ import edu.wpi.first.networktables.StringEntry;
 import edu.wpi.first.networktables.StructEntry;
 
 public class NT {
-    public static final String TeamNetworkTableName = "Qbranch";
+    public static final String TeamNetworkTableName = "Q Branch";
     public static NetworkTableInstance inst = NetworkTableInstance.getDefault();
     public static NetworkTable table = inst.getTable(TeamNetworkTableName);
 

@@ -33,7 +33,7 @@ public class Robot extends TimedRobot {
   //Set as true if using a Limelight. False if not.
   private final boolean kUseLimelight = false;
   private final NetworkTableInstance inst = NetworkTableInstance.getDefault();
-  private final NetworkTable driveStateTable = inst.getTable("Qbranch");
+  private final NetworkTable driveStateTable = inst.getTable("Q Branch");
   private final StructPublisher<Pose2d> drivePose = driveStateTable.getStructTopic("LLPose", Pose2d.struct).publish();
 
   private void UpdateDrivetrainFromLimelight() {
