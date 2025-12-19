@@ -184,6 +184,6 @@ public class ElevatorSubsystem extends SubsystemBase {
         LaserCan.Measurement measurement = lc.getMeasurement();
         //This puts a number on the Smart Dashboard, the big screen which pops up with the FRC Driver Station
         SmartDashboard.putNumber("Elevator Encoder", (ElevatorEncoder.getPosition()));
-        SmartDashboard.putNumber("Elevatore Distance mm", (measurement.distance_mm));
+        //SmartDashboard.putNumber("Elevatore Distance mm", (measurement.distance_mm));
     }
 }
