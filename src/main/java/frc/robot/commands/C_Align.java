@@ -54,7 +54,7 @@ public class C_Align extends Command{
     //Get ClassName to help network tables auto sort by creating a sub Table with the same name.
     String className = this.getClass().getSimpleName();
     public final Timer TimeToAlignTimer = new Timer();
-    public final frc.robot.subsystems.SwerveDrivetrainSubsystem drivetrain = RobotContainer.commandSwerveDrivetrain;
+    public final frc.robot.subsystems.SwerveDrivetrainSubsystem drivetrain = null; //RobotContainer.commandSwerveDrivetrain;
     public final SwerveRequest.FieldCentric FCdriveAuton = new SwerveRequest.FieldCentric();//.withForwardPerspective(ForwardPerspectiveValue.BlueAlliance); using blue alliance forward we dont need to mirror our drive commands. 
 
     private final PIDController AlignXPid = new PIDController(drivetrainThings.k_PoseX_P,drivetrainThings.k_PoseX_I,drivetrainThings.k_PoseX_D);

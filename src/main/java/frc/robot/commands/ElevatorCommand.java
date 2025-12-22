@@ -8,47 +8,48 @@ import frc.robot.subsystems.AlgaeWristSubsystem;
 import frc.robot.subsystems.ElevatorSubsystem;
 
 public class ElevatorCommand extends Command {
-    ElevatorSubsystem elevatorSubsystem;
+    //ElevatorSubsystem elevatorSubsystem;
     ExtendoSubsystem extendoSubsystem;
     AlgaeWristSubsystem wristSubsystem;
     XboxController controller2;
 
-    public ElevatorCommand(ElevatorSubsystem elevatorSubsystem, ExtendoSubsystem extendoSubsystem,
+    //ElevatorSubsystem elevatorSubsystem,
+    public ElevatorCommand( ExtendoSubsystem extendoSubsystem, 
             XboxController controller2) {
-        this.elevatorSubsystem = elevatorSubsystem;
+        //this.elevatorSubsystem = elevatorSubsystem;
         this.extendoSubsystem = extendoSubsystem;
         this.controller2 = controller2;
-        addRequirements(elevatorSubsystem);
+        //addRequirements(elevatorSubsystem);
         addRequirements(extendoSubsystem);
     }
 
     @Override
     public void execute() {
         if (controller2.getAButton()) { //Home Value
-            elevatorSubsystem.lcgoToHome(RobotConstants.lcHomeValue);
+            //elevatorSubsystem.lcgoToHome(RobotConstants.lcHomeValue);
             extendoSubsystem.goTo(RobotConstants.ExtendoRetract);
         } else if (controller2.getXButton()) { //L2 Value
-            elevatorSubsystem.lcgoTo(RobotConstants.lcL2Value);
+            //elevatorSubsystem.lcgoTo(RobotConstants.lcL2Value);
             extendoSubsystem.goTo(RobotConstants.ExtendoExtend);
         } else if (controller2.getYButton()) { //L4 Value
-            elevatorSubsystem.lcgoTo(RobotConstants.lcL4Value);
+            //elevatorSubsystem.lcgoTo(RobotConstants.lcL4Value);
             extendoSubsystem.goToL4(RobotConstants.ExtendoExtendL4);
         } else if (controller2.getBButton()) { //L3 Value
-            elevatorSubsystem.lcgoTo(RobotConstants.lcL3Value);
+            //elevatorSubsystem.lcgoTo(RobotConstants.lcL3Value);
             extendoSubsystem.goTo(RobotConstants.ExtendoExtend);
         } else if (controller2.getLeftY() < -0.2) {
-            elevatorSubsystem.goUp();
+            //elevatorSubsystem.goUp();
         } else if (controller2.getLeftY() > 0.2) {
-            elevatorSubsystem.goDown();
+            //elevatorSubsystem.goDown();
         } else if (controller2.getLeftX() > 0.2) {
             extendoSubsystem.Extend();
         } else if (controller2.getLeftX() < -0.2) {
             extendoSubsystem.Retract();
         } else if (controller2.getStartButton()) { // Barge Algae Value
-            elevatorSubsystem.lcgoTo(RobotConstants.lcL4Value);
+            //elevatorSubsystem.lcgoTo(RobotConstants.lcL4Value);
             extendoSubsystem.goTo(RobotConstants.ExtendoBarge);
         } else {
-            elevatorSubsystem.stop();
+            //elevatorSubsystem.stop();
             extendoSubsystem.stop();
         }
         // if (controller2.getLeftY() < -0.2) {

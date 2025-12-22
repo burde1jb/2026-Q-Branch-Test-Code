@@ -24,7 +24,7 @@ public class ExtendoSubsystem extends SubsystemBase {
     public LimitSwitchConfig magLimitSwitchConfig;
     private final double rangeOffset = RobotConstants.ExtendoRangeOffset;
     private final double encoderOffset = RobotConstants.ExtendoEncoderOffset;
-    private LaserCan lc;
+    //private LaserCan lc;
 
     public ExtendoSubsystem() {
         ExtendoMotor = new SparkFlex(RobotConstants.ExtendoMotorCANid, MotorType.kBrushless);
@@ -32,7 +32,7 @@ public class ExtendoSubsystem extends SubsystemBase {
         ExtendoMotorConfig = new SparkFlexConfig();
         ExtendoMotorConfig.limitSwitch
                 .forwardLimitSwitchEnabled(true);
-        lc = new LaserCan(0);
+        //lc = new LaserCan(0);
 
     }
 
@@ -95,7 +95,7 @@ public class ExtendoSubsystem extends SubsystemBase {
     }
 
     public boolean wentTo(double degrees) {
-        LaserCan.Measurement measurement = lc.getMeasurement();
+        //LaserCan.Measurement measurement = lc.getMeasurement();
 
         var position = (ExtendoEncoder.getPosition() + rangeOffset + encoderOffset) % 1;
 
@@ -191,5 +191,6 @@ public class ExtendoSubsystem extends SubsystemBase {
     public void periodic() {
         
         SmartDashboard.putNumber("Extendo Encoder", (ExtendoEncoder.getPosition() + encoderOffset) % 1);
+
     }
 }

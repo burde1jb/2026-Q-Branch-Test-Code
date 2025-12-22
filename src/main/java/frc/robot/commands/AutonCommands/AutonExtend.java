@@ -27,7 +27,7 @@ public class AutonExtend extends Command {
 
     @Override
     public void execute() {
-        extendoSubsystem.ExtendAuton(true);
+        extendoSubsystem.Extend();
         // if (!extendoFinished && extendoSubsystem.wentTo(RobotConstants.ExtendoExtendL4) || timer.get() > 1.0) {
         //     extendoSubsystem.stop();
         //     extendoFinished = true;

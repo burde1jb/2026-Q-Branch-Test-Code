@@ -27,41 +27,41 @@ public class Robot extends TimedRobot {
 
   @Override
   public void robotPeriodic() {
-  UpdateDrivetrainFromLimelight();
+  //UpdateDrivetrainFromLimelight();
     CommandScheduler.getInstance().run();
   }
-  private final boolean kUseLimelight = true;
-  private final NetworkTableInstance inst = NetworkTableInstance.getDefault();
-  private final NetworkTable driveStateTable = inst.getTable("Qbranch");
-  private final StructPublisher<Pose2d> drivePose = driveStateTable.getStructTopic("LLPose", Pose2d.struct).publish();
+  //private final boolean kUseLimelight = true;
+  //private final NetworkTableInstance inst = NetworkTableInstance.getDefault();
+  //private final NetworkTable driveStateTable = inst.getTable("Qbranch");
+  //private final StructPublisher<Pose2d> drivePose = driveStateTable.getStructTopic("LLPose", Pose2d.struct).publish();
 
-  private void UpdateDrivetrainFromLimelight() {
-    /*
-     * This example of adding Limelight is very simple and may not be sufficient for on-field use.
-     * Users typically need to provide a standard deviation that scales with the distance to target
-     * and changes with number of tags available.
-     *
-     * This example is sufficient to show that vision integration is possible, though exact implementation
-     * of how to use vision should be tuned per-robot and to the team's specification.
-     */
-    if (kUseLimelight) {
-      var driveState = m_robotContainer.commandSwerveDrivetrain.getState();
-      //double headingDeg = driveState.Pose.getRotation().getDegrees();
-      double omegaRps = Units.radiansToRotations(driveState.Speeds.omegaRadiansPerSecond);
+  // private void UpdateDrivetrainFromLimelight() {
+  //   /*
+  //    * This example of adding Limelight is very simple and may not be sufficient for on-field use.
+  //    * Users typically need to provide a standard deviation that scales with the distance to target
+  //    * and changes with number of tags available.
+  //    *
+  //    * This example is sufficient to show that vision integration is possible, though exact implementation
+  //    * of how to use vision should be tuned per-robot and to the team's specification.
+  //    */
+  //   if (kUseLimelight) {
+  //     var driveState = m_robotContainer.commandSwerveDrivetrain.getState();
+  //     //double headingDeg = driveState.Pose.getRotation().getDegrees();
+  //     double omegaRps = Units.radiansToRotations(driveState.Speeds.omegaRadiansPerSecond);
 
-      //LimelightHelpers.SetRobotOrientation("limelight", headingDeg, 0, 0, 0, 0, 0);
-      var llMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
-      if (llMeasurement != null && llMeasurement.tagCount > 0 && Math.abs(omegaRps) < 2.0) {
-        //m_robotContainer.commandSwerveDrivetrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,9999999));
-        SmartDashboard.putBoolean("usingLL",true);
-        m_robotContainer.commandSwerveDrivetrain.addVisionMeasurement(llMeasurement.pose, llMeasurement.timestampSeconds);
-      }
-      else{
-        SmartDashboard.putBoolean("usingLL",false);
-      }
-      drivePose.set(llMeasurement.pose);
-    }
-  }
+  //     //LimelightHelpers.SetRobotOrientation("limelight", headingDeg, 0, 0, 0, 0, 0);
+  //     var llMeasurement = LimelightHelpers.getBotPoseEstimate_wpiBlue("limelight");
+  //     if (llMeasurement != null && llMeasurement.tagCount > 0 && Math.abs(omegaRps) < 2.0) {
+  //       //m_robotContainer.commandSwerveDrivetrain.setVisionMeasurementStdDevs(VecBuilder.fill(.5,.5,9999999));
+  //       SmartDashboard.putBoolean("usingLL",true);
+  //       m_robotContainer.commandSwerveDrivetrain.addVisionMeasurement(llMeasurement.pose, llMeasurement.timestampSeconds);
+  //     }
+  //     else{
+  //       SmartDashboard.putBoolean("usingLL",false);
+  //     }
+  //     drivePose.set(llMeasurement.pose);
+  //   }
+  // }
 
   @Override
   public void disabledInit() {
@@ -77,11 +77,11 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    // m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-    if (m_autonomousCommand != null) {
-      m_autonomousCommand.schedule();
-    }
+    // if (m_autonomousCommand != null) {
+    //   m_autonomousCommand.schedule();
+    // }
   }
 
   @Override
